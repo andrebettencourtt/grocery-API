@@ -5,4 +5,4 @@ const auth = require('../controllers/authController')
 
 router.post('/signUp', auth.signUpUser)
 
-
+module.exports = router;
