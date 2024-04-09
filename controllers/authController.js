@@ -1,6 +1,6 @@
 const User = require('../models/users')
 
-exports.signUpUser = (req, res, next) => {
+exports.signUpUser = async (req, res, next) => {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
@@ -11,7 +11,7 @@ exports.signUpUser = (req, res, next) => {
         password: password,
     })
 
-    user.save()
+    await user.save()
         .then(result => {
             res.status(201).json({
                 massage: "User criado com sucesso!",
