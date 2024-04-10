@@ -8,8 +8,8 @@ const sequelize = new Sequelize('grocery', 'root', 'root', {
 sequelize.sync().then(() => {
   console.log("Banco conectado e sincronizado.");
 })
-.catch((err) => {
-  console.log("Falha ao sincronizar db: " + err.message);
-});
+  .catch((err) => {
+    console.log("Falha ao sincronizar db: " + err.message);
+  });
 
 module.exports = sequelize;
