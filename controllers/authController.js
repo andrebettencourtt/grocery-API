@@ -27,7 +27,7 @@ exports.signUpUser = async (req, res, next) => {
 
 exports.signInUser = async (req, res, next) => {
     const email = req.body.email;
-    const password = req.body.email;    
+    const password = req.body.password;    
 
     await User.findOne({ email: email }).then((user) => {
         if(!user) {
@@ -36,8 +36,9 @@ exports.signInUser = async (req, res, next) => {
             throw error;
         }
         if(password === user.password) {
-            return console.log("tudo ok")
+            return res.json({ msg: "tudo ok" })
         }
+        return res.json({ msg: "senha incorreta" })
     })
 
 }
