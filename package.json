@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "express": "^4.19.2",
+    "express-validator": "^7.0.1",
     "mysql2": "^3.9.3",
     "nodemon": "^3.1.0",
     "sequelize": "^6.37.2",

@@ -3,7 +3,9 @@ const router = express.Router()
 
 const auth = require('../controllers/authController')
 
-router.post('/signUp', auth.signUpUser)
+const { check } = require("express-validator")
+
+router.post('/signUp', check('email').isEmail(), auth.signUpUser)
 router.post('/signIn', auth.signInUser)
 
 module.exports = router;
