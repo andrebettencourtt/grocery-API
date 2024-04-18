@@ -11,12 +11,12 @@ module.exports = {
         .withMessage('A senha precisa de pelo menos 8 caracteres!'),
 
     validateName: check("name")
-        .isLength({ min: 7 })
-        .withMessage('O nome precisa de pelo menos 8 caracteres!'),
+        .isLength({ min: 3 })
+        .withMessage('O nome precisa de pelo menos 3 caracteres!')
 
-    validateEmailExistes: check('email')
+    /* validateEmailExistes: check("email")
         .isEmail()
-        .custom((emailRecebido, { }) => {
+        .custom((emailRecebido, { req }) => {
             return User.findOne({ email: emailRecebido }).then(user => {
 
                 if (user) {
@@ -24,8 +24,6 @@ module.exports = {
                 }
             })
         })
-
-
-
+ */
 
 }
