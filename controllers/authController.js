@@ -2,7 +2,7 @@ const { validationResult } = require('express-validator')
 
 const User = require('../models/users')
 
-exports.signUpUser = async (req, res, next) => {
+exports.signUpUser =  (req, res, next) => {
     const errors = validationResult(req);
 
     if(!errors.isEmpty()) {
@@ -22,7 +22,7 @@ exports.signUpUser = async (req, res, next) => {
         password: password,
     })
 
-    await user.save()
+     user.save()
         .then(result => {
             res.status(201).json({
                 massage: "User criado com sucesso!",
