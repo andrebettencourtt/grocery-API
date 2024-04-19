@@ -21,7 +21,7 @@ exports.signUpUser = (req, res, next) => {
         const user = new User({
             name: name,
             email: email,
-            password: password,
+            password: passHashed,
         })
 
         user.save()
@@ -44,6 +44,7 @@ exports.signUpUser = (req, res, next) => {
 exports.signInUser = async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
+    let loadedUser
 
     await User.findOne({ email: email }).then((user) => {
         if (!user) {
@@ -51,9 +52,20 @@ exports.signInUser = async (req, res, next) => {
             error.statusCode = 401;
             throw error;
         }
-        if (password === user.password) {
-            return res.json({ msg: "tudo ok" })
-        } else (
-            res.json({ msg: "senha incorreta" }))
+
+        loadedUser = user;
+        return bycript.compare(password, user.password)
+
+    }).then(passIsEqual => {
+        if (!passIsEqual) {
+            const error = new Error("Email ou senha inválida...");
+            error.statusCode = 401;
+            throw error;
+        }
+    }).catch(error => {
+        if (!error.statusCode) {
+            error.statusCode = 500;
+        }
+        next(error);
     })
 }
