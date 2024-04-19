@@ -12,9 +12,9 @@ module.exports = {
 
     validateName: check("name")
         .isLength({ min: 3 })
-        .withMessage('O nome precisa de pelo menos 3 caracteres!')
+        .withMessage('O nome precisa de pelo menos 3 caracteres!'),
 
-    /* validateEmailExistes: check("email")
+    validateEmailExistes: check("email")
         .isEmail()
         .custom((emailRecebido, { req }) => {
             return User.findOne({ email: emailRecebido }).then(user => {
@@ -24,6 +24,6 @@ module.exports = {
                 }
             })
         })
- */
+
 
 }
