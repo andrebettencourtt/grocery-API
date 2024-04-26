@@ -49,7 +49,7 @@ exports.signInUser = async (req, res, next) => {
     await User.findOne({ email: email }).then((user) => {
         if (!user) {
             const error = new Error("Email invalido!");
-            error.statusCode = 401;
+            error.statusCode = 422;
             throw error;
         }
 
@@ -62,7 +62,24 @@ exports.signInUser = async (req, res, next) => {
             error.statusCode = 401;
             throw error;
         }
-    }).catch(error => {
+
+        const token = jwt.sign(
+            {
+                email: loadedUser.email,
+                userId: loadedUser._id.toString()
+            },
+            "chavetoken",
+            { expiresIn: "4h"}
+        )
+
+        return res.status(200).json({
+            message: "Usuario logado com sucesso",
+            token: token
+        })
+
+
+    })
+    .catch(error => {
         if (!error.statusCode) {
             error.statusCode = 500;
         }
