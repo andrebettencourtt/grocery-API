@@ -3,11 +3,14 @@ const app = express()
 
 const authRoutes = require('./routes/authRoutes')
 const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 app.use(express.json())
 
 app.use(productRoutes)
 app.use(authRoutes)
+app.use(userRoutes)
+
 
 app.use((error, req, res, next) => {
     const message = error.message;
