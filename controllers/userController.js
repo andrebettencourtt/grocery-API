@@ -11,7 +11,7 @@ exports.profile = (req, res) => {
             res.status(200).json({ profile: user })
         }).catch(err => {
             res.status(500).json({ msg: err })
-        })
+        })  
 }
 
 exports.changePassword = (req, res) => {
@@ -41,7 +41,7 @@ exports.changePassword = (req, res) => {
                 throw error
             }
 
-            bcrypt.hash(newPassaword, 12).then(passHashed => {
+            bcrypt.hash(newPassword, 12).then(passHashed => {
                 userToChange.password = passHashed
 
                 userToChange.save().then(user => {
