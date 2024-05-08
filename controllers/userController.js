@@ -66,3 +66,34 @@ exports.changePassword = (req, res) => {
             })
         })
 }
+
+exports.delete = (req, res) => {
+    let password = req.body.password;
+    User.findById(req.userId)
+    .then(result => {
+        if(!result){
+            const error = new Error("Usuario não encontrado")
+            error.statusCode = 401;
+            throw error;
+        }
+
+        return bycript.compare(password.user.password);
+    })
+    .then(passIsEqual => {
+        if(!passIsEqual){
+            const error = new Error("Email ou senha invalida")
+            error.statusCode = 401;
+            throw error;
+        }
+        User.findByIdAndDelete({_id: req.userId}).then(() => {
+            return res.status(200).json({
+                message: "Usuario excluido com sucesso!",
+            })
+        })
+
+        .catch(err => {
+            next(err)
+        })
+
+    })
+}
